@@ -31,7 +31,10 @@ public class TrackerController {
         Iterable<Meet> m = meets.findAll();
         model.addAttribute("meets", m);
         // username from session = meet.user.name
-        model.addAttribute("isOwner", true);
+//        Meet meet = meets.findOne(id);
+//        model.addAttribute("meet", m);
+        //model.addAttribute("isOwner", username.equals(meet.getUser().getName()));
+        model.addAttribute("isOwner", false);
         return "home";
     }
 
