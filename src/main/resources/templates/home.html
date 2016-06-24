@@ -6,8 +6,10 @@
 </head>
 <body>
 <h2>Welcome to TRACKer.</h2>
-<br>
+
 {{^username}}
+Login or create an account to share info & comments about track & field meets.
+<br><br>
 <form action="/login" method="post">
     <input type="text" name="username" placeholder="Username"/>
     <input type="password" name="password" placeholder="Password"/>
@@ -17,15 +19,54 @@
 
 {{#username}}
 Hello, {{.}}!
-<br>
+<br><br>
 <form action="/logout" method="post">
     <button type="submit">Logout</button>
 </form>
-
-
-
+<br><br>
+Post a meet:
+<br><br>
+<form action="/create" method="post">
+    <input type="date" name="date" placeholder="Date"/>
+    <input type="text" name="location" placeholder="Location"/>
+    <select name="division">
+        <option value="I">I</option>
+        <option value="II">II</option>
+        <option value="III">III</option>
+    </select>
+    <select name="gender">
+        <option value="M">M</option>
+        <option value="F">F</option>
+    </select>
+    <input type="text" name="winner" placeholder="Winning Institution"/>
+    <input type="text" name="comments" placeholder="Comments"/>
+    <button type="submit">Submit</button>
+</form>
 {{/username}}
+<br><br>
+<table>
+    <tr>
+        <th>Posted by:</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Division</th>
+        <th>M/F</th>
+        <th>Winner</th>
+        <th>Comments</th>
 
+    </tr>
+{{#meets}}
+    <tr>
+        <td>{{#user}}{{name}}{{/user}}</td>
+        <td>{{date}}</td>
+        <td>{{location}}</td>
+        <td>{{division}}</td>
+        <td>{{gender}}</td>
+        <td>{{winner}}</td>
+        <td>{{comments}}</td>
+    </tr>
+{{/meets}}
+</table>
 
 </body>
 </html>
