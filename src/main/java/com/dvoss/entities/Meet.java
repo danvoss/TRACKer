@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Meet {
     @Id
     @GeneratedValue
-    int id;
+    Integer id;
 
     @Column(nullable = false)
     LocalDate date;
@@ -47,7 +47,18 @@ public class Meet {
         this.user = user;
     }
 
-    public int getId() {
+    public Meet(Integer id, LocalDate date, String location, String division, String gender, String winner, String comments, User user) {
+        this.id = id;
+        this.date = date;
+        this.location = location;
+        this.division = division;
+        this.gender = gender;
+        this.winner = winner;
+        this.comments = comments;
+        this.user = user;
+    }
+
+    public Integer getId() {
         return id;
     }
 

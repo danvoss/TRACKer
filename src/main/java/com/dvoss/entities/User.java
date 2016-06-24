@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue
-    int id;
+    Integer id;
 
     @Column(nullable = false)
     String name;
@@ -26,7 +26,7 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

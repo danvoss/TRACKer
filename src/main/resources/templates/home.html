@@ -64,6 +64,33 @@ Post a meet:
         <td>{{gender}}</td>
         <td>{{winner}}</td>
         <td>{{comments}}</td>
+        {{#isOwner}}
+        <td>
+        <form action="/delete" method="post">
+            <input type="hidden" name="id" value="{{id}}"/>
+            <button type="submit">Delete</button>
+        </form>
+        </td>
+        <td>
+            <form action="/update" method="post">
+                <input type="date" name="date" value="{{date}}"/>
+                <input type="text" name="location" value="{{location}}"/>
+                <select name="division">
+                    <option value="I">I</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                </select>
+                <select name="gender">
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                <input type="text" name="winner" value="{{winner}}"/>
+                <input type="text" name="comments" value="{{comments}}"/>
+                <input type="hidden" name="id" value="{{id}}"/>
+                <button type="submit">Submit</button>
+            </form>
+        </td>
+        {{/isOwner}}
     </tr>
 {{/meets}}
 </table>

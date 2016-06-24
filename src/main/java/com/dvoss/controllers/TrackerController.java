@@ -28,9 +28,10 @@ public class TrackerController {
     public String home(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         model.addAttribute("username", username);
-
         Iterable<Meet> m = meets.findAll();
         model.addAttribute("meets", m);
+        // username from session = meet.user.name
+        model.addAttribute("isOwner", true);
         return "home";
     }
 
@@ -55,11 +56,36 @@ public class TrackerController {
     }
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public String create(HttpSession session, String date, String location, String division, String gender, String winner, String comments ) {
+    public String create(HttpSession session, String date, String location, String division, String gender, String winner, String comments) throws Exception {
         String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("Not logged in.");
+        }
         User user = users.findByName(username);
         Meet meet = new Meet(LocalDate.parse(date), location, division, gender, winner, comments, user);
         meets.save(meet);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    public String delete(HttpSession session, Integer id) throws Exception {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("Not logged in.");
+        }
+        meets.delete(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/update", method = RequestMethod.POST)
+    public String update(HttpSession session, String date, String location, String division, String gender, String winner, String comments, Integer id) throws Exception {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("Not logged in.");
+        }
+        User user = users.findByName(username);
+        Meet m = new Meet(id, LocalDate.parse(date), location, division, gender, winner, comments, user);
+        meets.save(m);
         return "redirect:/";
     }
 
