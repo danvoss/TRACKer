@@ -34,6 +34,9 @@ public class Meet {
     @ManyToOne
     User user;
 
+    @Transient
+    boolean isOwner;
+
     public Meet() {
     }
 
@@ -45,6 +48,17 @@ public class Meet {
         this.winner = winner;
         this.comments = comments;
         this.user = user;
+    }
+
+    public Meet(LocalDate date, String location, String division, String gender, String winner, String comments, User user, boolean isOwner) {
+        this.date = date;
+        this.location = location;
+        this.division = division;
+        this.gender = gender;
+        this.winner = winner;
+        this.comments = comments;
+        this.user = user;
+        this.isOwner = isOwner;
     }
 
     public Meet(Integer id, LocalDate date, String location, String division, String gender, String winner, String comments, User user) {
@@ -120,5 +134,13 @@ public class Meet {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        isOwner = owner;
     }
 }

@@ -27,14 +27,18 @@ public class TrackerController {
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
-        model.addAttribute("username", username);
         Iterable<Meet> m = meets.findAll();
+        for (Meet meet : m) {
+            if (username != null && username.equals(meet.getUser().getName())) {
+                meet.setOwner(true);
+            }
+            else {
+                meet.setOwner(false);
+            }
+            model.addAttribute("isOwner", meet.isOwner());
+        }
+        model.addAttribute("username", username);
         model.addAttribute("meets", m);
-        // username from session = meet.user.name
-//        Meet meet = meets.findOne(id);
-//        model.addAttribute("meet", m);
-        //model.addAttribute("isOwner", username.equals(meet.getUser().getName()));
-        model.addAttribute("isOwner", false);
         return "home";
     }
 
