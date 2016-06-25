@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Update Meet Info</title>
+    <style>
+        body {
+            background-image: url("http://www.publicdomainpictures.net/pictures/20000/nahled/track-running-lanes.jpg");
+            text-align: center;
+            font-family: Verdana;
+            color: #F7FE2E;
+            }
+    </style>
+</head>
+<body>
+<h4>Update Meet Info:</h4>
+<form action="/update" method="post"> 
+    <input type="date" name="date" value="{{date}}"/> 
+    <input type="text" name="location" value="{{location}}"/> 
+    <select name="division"> 
+        <option value="I">I</option> 
+        <option value="II">II</option> 
+        <option value="III">III</option> 
+    </select> 
+    <select name="gender"> 
+        <option value="M">M</option> 
+        <option value="F">F</option> 
+    </select> 
+    <input type="text" name="winner" value="{{winner}}"/> 
+    <input type="text" name="comments" value="{{comments}}"/> 
+    <input type="hidden" name="id" value="{{id}}"/> 
+    <button type="submit">Submit Update</button> 
+</form>
+</body>
+</html>

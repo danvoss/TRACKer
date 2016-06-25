@@ -84,8 +84,21 @@ public class TrackerController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/update", method = RequestMethod.GET)
+    public String update(Model model, Integer id) {
+        Meet m = meets.findOne(id);
+        model.addAttribute("date", m.getDate());
+        model.addAttribute("location", m.getLocation());
+        model.addAttribute("division", m.getDivision());
+        model.addAttribute("gender", m.getGender());
+        model.addAttribute("winner", m.getWinner());
+        model.addAttribute("comments", m.getComments());
+        model.addAttribute("id", m.getId());
+        return "update";
+    }
+
     @RequestMapping(path = "/update", method = RequestMethod.POST)
-    public String update(HttpSession session, String date, String location, String division, String gender, String winner, String comments, Integer id) throws Exception {
+    public String edit(HttpSession session, String date, String location, String division, String gender, String winner, String comments, Integer id) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("Not logged in.");
