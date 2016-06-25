@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Created by Dan on 6/23/16.
@@ -37,8 +40,23 @@ public class TrackerController {
             }
             model.addAttribute("isOwner", meet.isOwner());
         }
+
+        // order list properly after updates:
+
+        ArrayList<Meet> meetList = new ArrayList<>();
+        for (Meet meet : m) {
+            meetList.add(meet);
+        }
+        Collections.sort(meetList);
+
+//      why doesn't this work?? :
+//        meetList
+//                .stream()
+//                .sorted((mt1, mt2) -> Integer.compare(mt1.getId(), mt2.getId()))
+//                .collect(Collectors.toCollection(ArrayList<Meet>::new));
+
         model.addAttribute("username", username);
-        model.addAttribute("meets", m);
+        model.addAttribute("meets", meetList);
         return "home";
     }
 

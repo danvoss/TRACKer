@@ -8,7 +8,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "meets")
-public class Meet {
+public class Meet implements Comparable<Meet>{
     @Id
     @GeneratedValue
     Integer id;
@@ -142,5 +142,16 @@ public class Meet {
 
     public void setOwner(boolean owner) {
         isOwner = owner;
+    }
+
+    @Override
+    public int compareTo(Meet m) {
+        if (this.id > m.id) {
+            return -1;
+        }
+        if (this.id < m.id) {
+            return 1;
+        }
+        return 0;
     }
 }
