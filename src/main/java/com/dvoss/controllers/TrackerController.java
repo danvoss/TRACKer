@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 /**
@@ -48,12 +49,6 @@ public class TrackerController {
             meetList.add(meet);
         }
         Collections.sort(meetList);
-
-//      why doesn't this work?? :
-//        meetList
-//                .stream()
-//                .sorted((mt1, mt2) -> Integer.compare(mt1.getId(), mt2.getId()))
-//                .collect(Collectors.toCollection(ArrayList<Meet>::new));
 
         model.addAttribute("username", username);
         model.addAttribute("meets", meetList);
