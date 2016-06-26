@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+
 /**
  * Created by Dan on 6/23/16.
  */
@@ -42,16 +44,23 @@ public class TrackerController {
             model.addAttribute("isOwner", meet.isOwner());
         }
 
-        // order list properly after updates:
+//        //order list properly after updates using Collections.sort:
+//        ArrayList<Meet> meetList = new ArrayList<>();
+//        for (Meet meet : m) {
+//            meetList.add(meet);
+//        }
+//        Collections.sort(meetList);
+//
+//        //or using a stream:
+//        meetList = meetList
+//                .stream()
+//                .sorted((m1, m2) -> Integer.compare(m2.getId(), m1.getId()))
+//                .collect(Collectors.toCollection(ArrayList<Meet>::new));
 
-        ArrayList<Meet> meetList = new ArrayList<>();
-        for (Meet meet : m) {
-            meetList.add(meet);
-        }
-        Collections.sort(meetList);
+        //or simply let sql do it:
 
         model.addAttribute("username", username);
-        model.addAttribute("meets", meetList);
+        model.addAttribute("meets", meets.findByOrderByIdDesc());
         return "home";
     }
 
