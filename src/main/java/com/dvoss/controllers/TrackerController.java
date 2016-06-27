@@ -58,7 +58,6 @@ public class TrackerController {
 //                .collect(Collectors.toCollection(ArrayList<Meet>::new));
 
         //or simply let sql do it:
-
         model.addAttribute("username", username);
         model.addAttribute("meets", meets.findByOrderByIdDesc());
         return "home";
