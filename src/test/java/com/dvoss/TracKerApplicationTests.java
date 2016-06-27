@@ -38,11 +38,6 @@ public class TracKerApplicationTests {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wap).build();
 	}
 
-//	what is this?:
-//	@Test
-//	public void contextLoads() {
-//	}
-
 	@Test
 	public void testLogin() throws Exception {
 		mockMvc.perform(
@@ -70,35 +65,31 @@ public class TracKerApplicationTests {
 		Assert.assertTrue(meets.count() == 1);
 	}
 
-	// delete and update tests fail; test posts showing up in psql. why?
+	@Test
+	public void testUpdate() throws Exception {
+		testLogin();
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/update")
+						.param("date", LocalDate.now().toString())
+						.param("location", "NewLoc")
+						.param("division", "NewDiv")
+						.param("gender", "NewGen")
+						.param("winner", "NewWin")
+						.param("comments", "NewCom")
+						.sessionAttr("username", "TestUser")
+						.param("id", "1")
+		);
+		Assert.assertTrue(meets.count() == 1);
+	}
 
-//	@Test
-//	public void testDelete() throws Exception {
-//		testLogin();
-//		testCreate();
-//		mockMvc.perform(
-//				MockMvcRequestBuilders.post("/delete")
-//				.sessionAttr("username", "TestUser")
-//				.param("id", "1")
-//		);
-//		Assert.assertTrue(meets.count() == 1);
-//	}
-//
-//	@Test
-//	public void testUpdate() throws Exception {
-//		testLogin();
-//		testCreate();
-//		mockMvc.perform(
-//				MockMvcRequestBuilders.post("/update")
-//				.param("date", LocalDate.now().toString())
-//				.param("location", "NewLoc")
-//				.param("division", "NewDiv")
-//				.param("gender", "NewGen")
-//				.param("winner", "NewWin")
-//				.param("comments", "NewCom")
-//				.sessionAttr("username", "TestUser")
-//				.param("id", "1")
-//		);
-//		Assert.assertTrue(meets.count() == 1);
-//	}
+	@Test
+	public void testDelete() throws Exception {
+		testLogin();
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/delete")
+				.sessionAttr("username", "TestUser")
+				.param("id", "1")
+		);
+		Assert.assertTrue(meets.count() == 0);
+	}
 }
